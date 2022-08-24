@@ -52,6 +52,7 @@ const account2 = {
 const accounts = [account1, account2];
 
 const formatMovementDate = function (date, locale) {
+  ////////////////////////////////////////////////////////////
   // Setting date for displaying
   const CaldaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
@@ -70,6 +71,8 @@ const formatMovementDate = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+////////////////////////////////////////////////////////////
+// Currentcy calculate function
 const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
@@ -77,6 +80,8 @@ const formatCur = function (value, locale, currency) {
   }).format(value);
 };
 
+////////////////////////////////////////////////////////////
+// Display the Movements function
 const displayMovements = function (acc, sort) {
   containerMovements.innerHTML = '';
 
@@ -103,8 +108,9 @@ const displayMovements = function (acc, sort) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-// displayMovements(account1.movements);
 
+////////////////////////////////////////////////////////////
+// Creating username function
 // const user = 'Steven Thomas Wiliams'; //stw
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
@@ -118,6 +124,8 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
+////////////////////////////////////////////////////////////
+// UpdateUI function
 const updateUI = function (acc) {
   //Display movements
   displayMovements(acc);
@@ -127,12 +135,15 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+////////////////////////////////////////////////////////////
+// Display Account Balance
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
-// calcDisplayBalance(account1.movements);
 
+////////////////////////////////////////////////////////////
+// Display Account Balance Summary
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
@@ -152,6 +163,8 @@ const calcDisplaySummary = function (acc) {
   labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
+////////////////////////////////////////////////////////////
+// Start timer function
 const startlogOutTimer = function () {
   const tick = function () {
     const min = String(Math.trunc(time / 60)).padStart(2, 0);
@@ -179,7 +192,7 @@ const startlogOutTimer = function () {
 };
 
 //////////////////////////////////////////////////////////
-// Event handler
+// EVENT HANDLER
 let currentAccount, timer;
 
 // FAKE ALWAYS LOGGED IN
